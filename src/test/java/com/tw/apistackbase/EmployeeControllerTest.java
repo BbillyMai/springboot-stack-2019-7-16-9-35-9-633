@@ -34,13 +34,31 @@ public class EmployeeControllerTest {
     private EmployeeService employeeService;
 
     @Test
+    public void should_return_employees_when_invoke_getAll() throws Exception {
+
+        List<Employee> employees = new ArrayList<>();
+        Employee employee = new Employee(1, "xiaoming", 14, "male", 5000, 1);
+        employees.add(employee);
+
+        when(employeeService.getAll()).thenReturn(employees);
+        ResultActions resultActions = mockMvc.perform(get("/employees"));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$",hasSize(1)))
+                .andExpect(jsonPath("$[0].name",is("xiaoming")))
+                .andExpect(jsonPath("$[0].age",is(14)))
+                .andExpect(jsonPath("$[0].gender",is("male")));
+    }
+
+
+    @Test
     public void should_return_employees_gender_is_male_when_invoke_getByGender() throws Exception {
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee(1, "mike", 13, "male", 5600, 1));
 
         when(employeeService.getByGender(anyString())).thenReturn(employees);
 
-        ResultActions resultActions = mockMvc.perform(get("/employees").param("gender","male"));
+        ResultActions resultActions = mockMvc.perform(get("/employees").param("gender", "male"));
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].name", is("mike")))

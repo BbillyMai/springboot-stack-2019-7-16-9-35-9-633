@@ -21,7 +21,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -119,7 +119,7 @@ public class CompanyControllerTest {
                         "        \"employeesNumber\": 244\n" +
                         "    }"));
 
-        resultActions.andExpect(status().isOk());
+        resultActions.andExpect(status().isCreated());
         resultActions.andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.companyName", is("alibaba")))
                 .andExpect(jsonPath("$.employeesNumber", is(244)));
@@ -143,13 +143,15 @@ public class CompanyControllerTest {
         resultActions.andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.companyName", is("alibaba")))
                 .andExpect(jsonPath("$.employeesNumber", is(244)));
+
     }
 
     @Test
     public void invoke_deleteById_given_companyId() throws Exception {
 
+        doNothing().when(companyService).deleteById(anyInt());
         ResultActions resultActions = mockMvc.perform(delete("/companies/{companyId}",1).accept(MediaType.APPLICATION_JSON));
-        resultActions.andExpect(status().isOk());
-
+        resultActions.andExpect(status().isAccepted());
+        verify(companyService).deleteById(anyInt());
     }
 }

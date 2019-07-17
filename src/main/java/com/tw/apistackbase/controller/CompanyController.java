@@ -4,6 +4,8 @@ import com.tw.apistackbase.model.Company;
 import com.tw.apistackbase.model.Employee;
 import com.tw.apistackbase.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,8 +37,8 @@ public class CompanyController {
     }
 
     @PostMapping("/companies")
-    public Company addCompany(@RequestBody Company company) {
-        return companyService.addCompany(company);
+    public ResponseEntity<Company> addCompany(@RequestBody Company company) {
+        return new ResponseEntity<Company>(companyService.addCompany(company), HttpStatus.CREATED);
     }
 
     @PutMapping("/companies/{companyId}")
@@ -45,7 +47,8 @@ public class CompanyController {
     }
 
     @DeleteMapping("/companies/{companyId}")
-    public void deleteById(@PathVariable int companyId) {
+    public ResponseEntity<Void> deleteById(@PathVariable int companyId) {
         companyService.deleteById(companyId);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
     }
 }

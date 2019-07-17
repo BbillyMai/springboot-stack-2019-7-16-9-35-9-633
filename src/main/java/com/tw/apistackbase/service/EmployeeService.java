@@ -22,7 +22,7 @@ public class EmployeeService {
     }
 
     public List<Employee> getByPaging(int page, int pageSize) {
-        return employeeRepository.getByPaing(page,pageSize);
+        return employeeRepository.getByPaging(page,pageSize);
     }
 
     public Employee addEmployee(Employee employee) {

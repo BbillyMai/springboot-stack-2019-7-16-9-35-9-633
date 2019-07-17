@@ -35,7 +35,7 @@ public class EmployeeRepository {
         return employees.get(employeeId);
     }
 
-    public List<Employee> getByPaing(int page, int pageSize) {
+    public List<Employee> getByPaging(int page, int pageSize) {
         int startIndex = (page - 1) * pageSize;
         int endIndex = page * pageSize > employees.size() ? employees.size() : page * pageSize;
         return mapToList().subList(startIndex, endIndex);

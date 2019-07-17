@@ -34,7 +34,7 @@ public class EmployeeControllerTest {
     private EmployeeService employeeService;
 
     @Test
-    public void getByGenderTest() throws Exception {
+    public void should_return_employees_gender_is_male_when_invoke_getByGender() throws Exception {
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee(1, "mike", 13, "male", 5600, 1));
 

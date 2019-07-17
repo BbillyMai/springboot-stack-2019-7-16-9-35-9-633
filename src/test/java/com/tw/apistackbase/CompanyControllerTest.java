@@ -37,7 +37,7 @@ public class CompanyControllerTest {
     private CompanyService companyService;
 
     @Test
-    public void getAllTest() throws Exception {
+    public void should_return_companies_when_invoke_getAllTest() throws Exception {
 
         List<Company> companies = new ArrayList<>();
         companies.add(new Company(1, "alibaba", 244));
@@ -53,7 +53,7 @@ public class CompanyControllerTest {
     }
 
     @Test
-    public void getByIdTest() throws Exception {
+    public void should_return_companies_when_invoke_getById_given_companyId() throws Exception {
 
         Company company = new Company(1, "alibaba", 244);
 
@@ -68,7 +68,7 @@ public class CompanyControllerTest {
     }
 
     @Test
-    public void getEmployeesByCompanyId() throws Exception {
+    public void should_return_employees_when_invoke_getEmployeesByCompanyId_given_companyId() throws Exception {
 
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee(1, "mike", 13, "male", 5600, 1));
@@ -88,7 +88,7 @@ public class CompanyControllerTest {
     }
 
     @Test
-    public void getByPaging() throws Exception {
+    public void should_return_companies_when_invoke_getByPaging() throws Exception {
         List<Company> companies = new ArrayList<>();
         companies.add(new Company(1, "alibaba1", 244));
         companies.add(new Company(2, "alibaba2", 245));
@@ -106,7 +106,7 @@ public class CompanyControllerTest {
     }
 
     @Test
-    public void addTest() throws Exception {
+    public void should_return_new_company_when_invoke_add() throws Exception {
 
         when(companyService.addCompany(any(Company.class))).thenReturn(new Company(1, "alibaba", 244));
 
@@ -125,7 +125,7 @@ public class CompanyControllerTest {
     }
 
     @Test
-    public void updateTest() throws Exception {
+    public void should_return_update_company_when_invoke_update() throws Exception {
 
         Company company = new Company(1, "alibaba", 244);
 
@@ -145,7 +145,7 @@ public class CompanyControllerTest {
     }
 
     @Test
-    public void deleteByIdTest() throws Exception {
+    public void invoke_deleteById_given_companyId() throws Exception {
 
         ResultActions resultActions = mockMvc.perform(delete("/companies/{companyId}",1).accept(MediaType.APPLICATION_JSON));
         resultActions.andExpect(status().isOk());

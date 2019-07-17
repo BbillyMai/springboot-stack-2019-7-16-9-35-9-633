@@ -36,6 +36,7 @@ public class CompanyControllerTest {
     @MockBean
     private CompanyService companyService;
 
+    
     @Test
     public void should_return_companies_when_invoke_getAllTest() throws Exception {
 
